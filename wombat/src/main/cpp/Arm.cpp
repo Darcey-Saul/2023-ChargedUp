@@ -45,7 +45,7 @@ void Arm::OnUpdate(units::second_t dt) {
       voltage = _voltage;
       break;
     case ArmState::kZeroing:
-      // SetAngle(units::radian_t)) = 0_deg;
+      //current angle = 0
       break;
   }
 
