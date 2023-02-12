@@ -24,7 +24,7 @@ namespace wom {
     units::meter_t armLength;
     units::radian_t minAngle = -90_deg;
     units::radian_t maxAngle = 270_deg;
-    units::radian_t initialAngle = 0_deg;
+    units::radian_t initialAngle = 90_deg;
     units::radian_t angleOffset = 0_deg;
 
     void WriteNT(std::shared_ptr<nt::NetworkTable> table);

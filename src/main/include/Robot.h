@@ -4,12 +4,15 @@
 #include "Vision.h"
 
 #include <string>
+#include <iostream>
 
 #include <ctre/Phoenix.h>
 #include <frc/TimedRobot.h>
 #include <frc/event/EventLoop.h>
 #include "ControlUtil.h"
+#include <units/math.h>
 
+#include <stdio.h>
 
 #include "behaviour/BehaviourScheduler.h"
 #include "behaviour/Behaviour.h"
@@ -44,10 +47,13 @@ class Robot : public frc::TimedRobot {
   RobotMap map;
   Armavator *armavator;
   wom::SwerveDrive *swerve;
-  SideIntake *sideIntake;
-
   bool intakeSol = false;
   bool gripperSol = false;
   Vision *vision;
   //SwerveModuleTest *swerveModule;
+  SideIntake *sideIntake;
+  Gripper *gripper;
+
+  units::meter_t _elevatorSetpoint = 0_m;
+  units::radian_t _armSetpoint = 0_deg;
 };

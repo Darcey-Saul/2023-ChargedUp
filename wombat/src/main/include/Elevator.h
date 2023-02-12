@@ -33,7 +33,7 @@ namespace wom {
     units::kilogram_t mass;
     units::meter_t maxHeight = 1.33_m;
     units::meter_t minHeight = 0.28_m;
-    units::meter_t initialHeight = 1.3_m;
+    units::meter_t initialHeight = 0_m;
     PIDConfig<units::meter, units::volt> pid;
 
     void WriteNT(std::shared_ptr<nt::NetworkTable> table);

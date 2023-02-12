@@ -42,9 +42,10 @@ namespace wom {
     void OnStart();
 
     void SetIdle();
-    void SetPID(units::radian_t angle, units::meters_per_second_t speed);
+    void SetPID(units::radian_t angle, units::meters_per_second_t speed, units::second_t dt);
   
     void SetAccelerationLimit(units::meters_per_second_squared_t limit);
+
 
     // frc::SwerveModuleState GetState();
     frc::SwerveModulePosition GetPosition() const;
@@ -69,6 +70,7 @@ namespace wom {
   struct SwerveDriveConfig {
     using pose_angle_conf_t = PIDConfig<units::radian, units::radians_per_second>;
     using pose_position_conf_t = PIDConfig<units::meter, units::meters_per_second>;
+    using balance_conf_t = PIDConfig<units::degree, units::meters_per_second>;
 
     std::string path;
     SwerveModule::angle_pid_conf_t anglePID;
@@ -95,7 +97,9 @@ namespace wom {
     kFieldRelativeVelocity,
     kPose,
     kIndividualTuning,
-    kTuning
+    kTuning,
+    kXWheels,
+    kModuleTurn
   };
 
   struct FieldRelativeSpeeds {
@@ -130,7 +134,11 @@ namespace wom {
     void SetIndividualTuning(int mod, units::radian_t angle, units::meters_per_second_t speed);
     void SetTuning(units::radian_t angle, units::meters_per_second_t speed);
 
+<<<<<<< HEAD
     bool IsMoving();
+=======
+    void SetXWheelState();
+>>>>>>> 196464c2623a52754945b90214277c13fd1c436b
 
     void SetAccelerationLimit(units::meters_per_second_squared_t limit);
 
@@ -163,8 +171,6 @@ namespace wom {
     int _mod;
     units::radian_t _angle;
     units::meters_per_second_t _speed;
-
-
   };
 
   namespace sim {

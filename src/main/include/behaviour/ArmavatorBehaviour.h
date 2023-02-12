@@ -7,7 +7,11 @@
 #include <units/angle.h>
 #include <units/length.h>
 #include <iostream>
+<<<<<<< HEAD
 #include <math.h>
+=======
+#include "ControlUtil.h"
+>>>>>>> 196464c2623a52754945b90214277c13fd1c436b
 
 class ArmavatorGoToPositionBehaviour : public behaviour::Behaviour {
  public:
@@ -82,5 +86,27 @@ class ArmavatorRawBehaviour : public behaviour::Behaviour {
 
   ArmavatorPosition _setpoint;
   std::deque<grid_t::GridPathNode<units::second>> _waypoints;
+<<<<<<< HEAD
   frc::XboxController &_tester;
+=======
+  frc::XboxController &_codriver;
+};
+
+
+class ArmavatorManualBehaviour : public behaviour::Behaviour {
+ public: 
+  ArmavatorManualBehaviour(Armavator *armavator, frc::XboxController &codriver);
+
+  void OnStart() override;
+  void OnTick(units::second_t dt) override;
+ private: 
+  Armavator *_armavator;
+  ArmavatorPosition _manualSetpoint;
+
+  frc::XboxController &_codriver;
+
+  units::meter_t startHeight; 
+
+  bool rawControl = false;
+>>>>>>> 196464c2623a52754945b90214277c13fd1c436b
 };
