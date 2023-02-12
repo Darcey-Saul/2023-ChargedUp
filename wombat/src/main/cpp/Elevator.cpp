@@ -54,19 +54,15 @@ void Elevator::OnUpdate(units::second_t dt) {
 
   // Top Sensor Detector
   if(_config.topSensor != nullptr) {
-    if(_config.topSensor->Get()) {
-      _config.gearbox.encoder->SetEncoderPosition(_config.maxHeight / _config.radius * 1_rad);
-      //voltage = 0_V;
-    }
+    _config.gearbox.encoder->SetEncoderPosition(_config.maxHeight / _config.radius * 1_rad);
+    //voltage = 0_V;
   }
 
   //Bottom Sensor Detection
   if (_config.bottomSensor != nullptr) {
-    if (_config.bottomSensor->Get()) {
-      _config.gearbox.encoder->SetEncoderPosition(_config.minHeight / _config.radius * 1_rad);
-      voltage = 0_V;
-      //voltage = 0_V;
-    }
+    _config.gearbox.encoder->SetEncoderPosition(_config.minHeight / _config.radius * 1_rad);
+    voltage = 0_V;
+    //voltage = 0_V;
   }
 
   // Set voltage to motors...

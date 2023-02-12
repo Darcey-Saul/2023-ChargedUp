@@ -27,9 +27,10 @@ namespace wom {
   //creates infromation that is used in the config
   struct ElevatorConfig {
     std::string path;
-    wom::Gearbox gearbox;
-    frc::DigitalInput *topSensor;
-    frc::DigitalInput *bottomSensor;
+    wom::Gearbox gearbox2;
+    wom::Gearbox gearbox3;
+    frc::AnalogInput *topSensor;
+    frc::AnalogInput *bottomSensor;
     units::meter_t radius;
     units::kilogram_t mass;
     units::meter_t maxHeight = 1.33_m;

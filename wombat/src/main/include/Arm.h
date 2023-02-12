@@ -17,6 +17,7 @@ namespace wom {
     std::string path;
 
     wom::Gearbox gearbox;
+    wom::Gearbox gearbox1;
     wom::PIDConfig<units::radian, units::volt> pidConfig;
 
     units::kilogram_t armMass;
