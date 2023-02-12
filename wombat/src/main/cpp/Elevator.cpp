@@ -18,7 +18,8 @@ Elevator::Elevator(ElevatorConfig config)
   : _config(config), _state(ElevatorState::kIdle),
   _pid{config.path + "/pid", config.pid},
   _table(nt::NetworkTableInstance::GetDefault().GetTable(config.path)) {
-  _config.gearbox.encoder->SetEncoderPosition(_config.initialHeight / _config.radius * 1_rad);
+  _config.gearbox2.encoder->SetEncoderPosition(_config.initialHeight / _config.radius * 1_rad);
+  _config.gearbox3.encoder->GetEncoderPosition(_config.initialHeight/ _config.radius * 1_rad);
 }
 
 //the loop that allows the information to be used
@@ -40,7 +41,7 @@ void Elevator::OnUpdate(units::second_t dt) {
     break;
     case ElevatorState::kPID:
       {
-        auto feedforward = _config.gearbox.motor.Voltage((_config.mass * 9.81_mps_sq) * _config.radius, 0_rad_per_s);
+        auto feedforward = _config.gearbox2.motor.Voltage((_config.mass * 9.81_mps_sq) * _config.radius, 0_rad_per_s);
         voltage = _pid.Calculate(height, dt, feedforward);
       }
     break;
@@ -54,19 +55,19 @@ void Elevator::OnUpdate(units::second_t dt) {
 
   // Top Sensor Detector
   if(_config.topSensor != nullptr) {
-    _config.gearbox.encoder->SetEncoderPosition(_config.maxHeight / _config.radius * 1_rad);
+    _config.gearbox2.encoder->SetEncoderPosition(_config.maxHeight / _config.radius * 1_rad);
     //voltage = 0_V;
   }
 
   //Bottom Sensor Detection
   if (_config.bottomSensor != nullptr) {
-    _config.gearbox.encoder->SetEncoderPosition(_config.minHeight / _config.radius * 1_rad);
+    _config.gearbox2.encoder->SetEncoderPosition(_config.minHeight / _config.radius * 1_rad);
     voltage = 0_V;
     //voltage = 0_V;
   }
 
   // Set voltage to motors...
-  _config.gearbox.transmission->SetVoltage(voltage);
+  _config.gearbox2.transmission->SetVoltage(voltage);
 }
 
 //defines information needed for the functions and connects the states to their respective function
@@ -108,9 +109,9 @@ ElevatorState Elevator::GetState() const {
 }
 
 units::meter_t Elevator::GetHeight() const {
-  return _config.gearbox.encoder->GetEncoderPosition().value() * _config.radius;
+  return _config.gearbox2.encoder->GetEncoderPosition().value() * _config.radius;
 }
 
 units::meters_per_second_t Elevator::MaxSpeed() const {
-  return _config.gearbox.motor.Speed((_config.mass * 9.81_mps_sq) * _config.radius, 12_V) / 1_rad * _config.radius;
+  return _config.gearbox2.motor.Speed((_config.mass * 9.81_mps_sq) * _config.radius, 12_V) / 1_rad * _config.radius;
 }
