@@ -44,6 +44,9 @@ void Arm::OnUpdate(units::second_t dt) {
     case ArmState::kRaw:
       voltage = _voltage;
       break;
+    case ArmState::kZeroing:
+      //
+      break;
   }
 
   // if (
@@ -74,6 +77,11 @@ void Arm::SetRaw(units::volt_t voltage) {
 void Arm::SetAngle(units::radian_t angle) {
   _state = ArmState::kAngle;
   _pid.SetSetpoint(angle);
+}
+
+void Arm::SetZeroing(units::volt_t voltage) {
+  _state = ArmState::kZeroing;
+  _voltage = voltage;
 }
 
 ArmConfig &Arm::GetConfig() {

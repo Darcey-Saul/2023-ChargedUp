@@ -157,8 +157,8 @@ void ArmavatorGoToPositionBehaviour::OnTick(units::second_t dt) {
 //   }
 // }
 
-ArmavatorRawBehaviour::ArmavatorRawBehaviour(Armavator *armavator, frc::XboxController &tester)
-: _armavator(armavator), _tester(tester) {
+ArmavatorRawBehaviour::ArmavatorRawBehaviour(Armavator *armavator, frc::XboxController &codriver)
+: _armavator(armavator), _codriver(codriver) {
   //tells code that the points are controlled (one point at a time) 
   _setpoint.height = 0.0_m;
   _setpoint.angle = 0.0_deg;
@@ -173,8 +173,8 @@ void ArmavatorRawBehaviour::OnTick(units::second_t dt) {
   //Raw Positioning
   _setpoint.angle = getCorrectAngle(_setpoint.height);
   _armavator->SetRaw(
-    -_tester.GetLeftY() * 9_V,
-    -_tester.GetRightY() * 9_V
+    -_codriver.GetLeftY() * 9_V,
+    -_codriver.GetRightY() * 9_V
   );
   if (_tester.GetRightY() < 0.05 && _tester.GetLeftY() < 0.05) {
     _setpoint = _armavator->GetCurrentPosition();
@@ -219,7 +219,7 @@ void ArmavatorManualBehaviour::OnTick(units::second_t dt) {
   }
  
   if (rawControl) {
-    _armavator->SetManual(
+    _armavator->SetRaw(
       -_codriver.GetLeftY() * 9_V,
       -_codriver.GetRightY() * 9_V
     );

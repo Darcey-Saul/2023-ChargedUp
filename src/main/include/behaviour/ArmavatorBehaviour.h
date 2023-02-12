@@ -7,11 +7,8 @@
 #include <units/angle.h>
 #include <units/length.h>
 #include <iostream>
-<<<<<<< HEAD
 #include <math.h>
-=======
 #include "ControlUtil.h"
->>>>>>> 196464c2623a52754945b90214277c13fd1c436b
 
 class ArmavatorGoToPositionBehaviour : public behaviour::Behaviour {
  public:
@@ -52,8 +49,7 @@ class ArmavatorRawBehaviour : public behaviour::Behaviour {
   using grid_t = ArmavatorConfig::grid_t;
 
   //constructor
-  ArmavatorRawBehaviour(Armavator *armavator, frc::XboxController &tester);
-
+  ArmavatorRawBehaviour(Armavator *armavator, frc::XboxController &codriver);
 
   units::radian_t checkAngleLimits(units::radian_t value, units::radian_t lowerLimit, units::radian_t upperLimit) {
     if (value >= lowerLimit && value < upperLimit) {
@@ -86,9 +82,7 @@ class ArmavatorRawBehaviour : public behaviour::Behaviour {
 
   ArmavatorPosition _setpoint;
   std::deque<grid_t::GridPathNode<units::second>> _waypoints;
-<<<<<<< HEAD
   frc::XboxController &_tester;
-=======
   frc::XboxController &_codriver;
 };
 
@@ -108,5 +102,4 @@ class ArmavatorManualBehaviour : public behaviour::Behaviour {
   units::meter_t startHeight; 
 
   bool rawControl = false;
->>>>>>> 196464c2623a52754945b90214277c13fd1c436b
 };

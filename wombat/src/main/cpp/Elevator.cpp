@@ -47,6 +47,9 @@ void Elevator::OnUpdate(units::second_t dt) {
     case ElevatorState::kRaw:
       voltage = _voltage;
     break;
+    case ElevatorState::kZeroing:
+      voltage = -6_V;
+    break;
   }
 
   // Top Sensor Detector
@@ -61,6 +64,7 @@ void Elevator::OnUpdate(units::second_t dt) {
   if (_config.bottomSensor != nullptr) {
     if (_config.bottomSensor->Get()) {
       _config.gearbox.encoder->SetEncoderPosition(_config.minHeight / _config.radius * 1_rad);
+      voltage = 0_V;
       //voltage = 0_V;
     }
   }
@@ -87,6 +91,11 @@ void Elevator::SetIdle() {
 
 void Elevator::SetRaw(units::volt_t voltage) {
   _state = ElevatorState::kRaw;
+  _voltage = voltage;
+}
+
+void Elevator::SetZeroing(units::volt_t voltage) {
+  _state = ElevatorState::kZeroing;
   _voltage = voltage;
 }
 

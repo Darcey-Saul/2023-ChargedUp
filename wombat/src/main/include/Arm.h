@@ -34,7 +34,8 @@ namespace wom {
   enum class ArmState {
     kIdle,
     kAngle,
-    kRaw
+    kRaw,
+    kZeroing
   };
 
   //allows the different states to be usable
@@ -48,6 +49,7 @@ namespace wom {
     void SetIdle();
     void SetAngle(units::radian_t angle);
     void SetRaw(units::volt_t voltage);
+    void SetZeroing(units::volt_t voltage);
 
     ArmConfig &GetConfig();
 
@@ -55,6 +57,7 @@ namespace wom {
     units::radians_per_second_t MaxSpeed() const;
     
     bool IsStable() const;
+
   private:
     //information that cannot be changed or edited by user
     ArmConfig _config;

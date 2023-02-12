@@ -20,7 +20,8 @@ namespace wom {
     kIdle, 
     kPID,
     kManual,
-    kRaw
+    kRaw,
+    kZeroing
   };
 
   //creates infromation that is used in the config
@@ -51,6 +52,7 @@ namespace wom {
     void SetPID(units::meter_t height);
     void SetIdle();
     void SetRaw(units::volt_t voltage);
+    void SetZeroing(units::volt_t voltage);
 
     ElevatorConfig &GetConfig();
     
