@@ -16,6 +16,7 @@ namespace wom {
   struct ArmConfig {
     std::string path;
 
+    frc::DutyCycleEncoder DutyCycleEncoder;
     wom::Gearbox gearbox;
     wom::Gearbox gearbox1;
     wom::PIDConfig<units::radian, units::volt> pidConfig;

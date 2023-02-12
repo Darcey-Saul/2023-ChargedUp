@@ -249,8 +249,8 @@ struct RobotMap {
       // wom::DigitalEncoder encoder{0, 1, 2048};
       //sets the type sof encoder that is used up
       // rev::SparkMaxRelativeEncoder encoder = motor.GetEncoder();
-      wom::CANSparkMaxEncoder encoder = motor.GetEncoder();
-      wom::CANSparkMaxEncoder encoder1 = motor1.GetEncoder();
+      wom::CANSparkMaxEncoder encoder{&motor};
+      wom::CANSparkMaxEncoder encoder1{&motor1};
       frc::DutyCycleEncoder DutyCyleEncoder{21};
 
 
@@ -270,6 +270,7 @@ struct RobotMap {
       //creates arm config information
       wom::ArmConfig config {
         "/armavator/arm",
+        DutyCyleEncoder,
         gearbox,
         gearbox1,
         wom::PIDConfig<units::radian, units::volts>(
@@ -303,8 +304,8 @@ struct RobotMap {
       wom::MotorVoltageController motorGroup = wom::MotorVoltageController::Group(motor2, motor3);
 
       //creates an instance of the encoder that will be used for the elevator
-      wom::CANSparkMaxEncoder encoder2 = motor2.GetEncoder();
-      wom::CANSparkMaxEncoder encoder3 = motor3.GetEncoder();
+      wom::CANSparkMaxEncoder encoder2{motor2};
+      wom::CANSparkMaxEncoder encoder3{motor3};
       //creates an instance of the gearbox used for the elevator
       wom::Gearbox gearbox2 {
         &motor2,
