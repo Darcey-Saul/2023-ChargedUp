@@ -21,7 +21,7 @@ namespace wom {
 
     units::kilogram_t armMass;
     units::kilogram_t loadMass;
-    units::meter_t armLength;
+    units::meter_t armLength = 1.34_m;
     units::radian_t minAngle = -90_deg;
     units::radian_t maxAngle = 270_deg;
     units::radian_t initialAngle = 90_deg;
