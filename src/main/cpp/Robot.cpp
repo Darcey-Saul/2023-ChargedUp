@@ -40,7 +40,7 @@ void Robot::RobotInit() {
 
 
   //creates an instance of the armavator that can be used
-  armavator = new Armavator(map.armavator.arm.gearbox, map.armavator.elevator.gearbox, map.armavator.config);
+  armavator = new Armavator(map.armavator.arm.gearbox, map.armavator.elevator.gearbox2, map.armavator.config);
   BehaviourScheduler::GetInstance()->Register(armavator);
   armavator->SetDefaultBehaviour([this]() {
     //sets default behaviour class
