@@ -11,8 +11,8 @@ ArmavatorGoToPositionBehaviour::ArmavatorGoToPositionBehaviour(Armavator *armava
 void ArmavatorGoToPositionBehaviour::OnStart() {
   std::cout << "On Start" << std::endl;
   // Zero the elevator
-  // _armavator->elevator->SetZeroing();
-  
+   _armavator->elevator->SetZeroing();
+   _armavator->arm->SetZeroing();
   //Sets current position
   // ArmavatorPosition Elevator
   // ArmavatorPosition current = armavator->GetCurrentPosition();
@@ -165,7 +165,9 @@ ArmavatorRawBehaviour::ArmavatorRawBehaviour(Armavator *armavator, frc::XboxCont
   Controls(armavator);
 };
 
-void ArmavatorRawBehaviour::OnStart() {
+void ArmavatorRawBehaviour::OnStart() {\
+   _armavator->elevator->SetZeroing();
+   _armavator->arm->SetZeroing();
 }
 
 

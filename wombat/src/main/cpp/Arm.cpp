@@ -46,7 +46,10 @@ void Arm::OnUpdate(units::second_t dt) {
       break;
     case ArmState::kZeroing:
       //current angle = 0
-  
+      voltage = -2_V;
+      _config.gearbox.encoder->ZeroEncoder();
+      _config.gearbox1.encoder->ZeroEncoder();
+      _state = ArmState::kIdle;
       break;
   }
 
