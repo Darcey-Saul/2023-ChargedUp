@@ -116,3 +116,11 @@ std::shared_ptr<behaviour::Behaviour> RED_Bottom_Double(wom::SwerveDrive *swerve
 std::shared_ptr<behaviour::Behaviour> RED_Top_Quad_Collect(wom::SwerveDrive *swerve);
 std::shared_ptr<behaviour::Behaviour> RED_Bottom_Quad_Collect(wom::SwerveDrive *swerve);
 
+
+/*VERY ROUGH ESTIMATES FOR POSES, IF CHANGING CODE, CONTACT LIAM*/
+/*
+lOW GRID: -51.27 DEG, 1.33 HEIGHT
+MIDDLE GRID: -20.50 DEG, 1.33 HEIGHT
+HEIGH GRID: 0 DEG, M1.33 HEIGHT
+*/
+/*VERY ROUGH, WILL PROBS NEED TUNING TO BE MORE PRECISE*/

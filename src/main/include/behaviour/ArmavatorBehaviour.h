@@ -59,22 +59,6 @@ class ArmavatorRawBehaviour : public behaviour::Behaviour {
     }
   }
 
-  units::radian_t getCorrectAngle(units::meter_t height = 0_m) {
-    if (height < 0.51_m) {
-      return 0_rad;
-    } else {
-      if (height >= 0.51_m && height < 0.81_m) {
-        return checkAngleLimits(_setpoint.angle, 0_deg, 90_deg);
-      } else if (height >= 0.81_m && height < 1.21_m) {
-        return checkAngleLimits(_setpoint.angle, -45_deg, 90_deg);
-      } else if (height >= 1.21_m && height < 1.47_m) {
-        return checkAngleLimits(_setpoint.angle, -45_deg, 180_deg);
-      } else if (height == 1.47_m) {
-        return checkAngleLimits(_setpoint.angle, -90_deg, 270_deg);;
-      }
-    }
-  }
-
   void OnStart() override;
   void OnTick(units::second_t dt) override;
  private:
@@ -82,7 +66,6 @@ class ArmavatorRawBehaviour : public behaviour::Behaviour {
 
   ArmavatorPosition _setpoint;
   std::deque<grid_t::GridPathNode<units::second>> _waypoints;
-  frc::XboxController &_tester;
   frc::XboxController &_codriver;
 };
 

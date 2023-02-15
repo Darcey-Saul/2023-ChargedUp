@@ -16,9 +16,7 @@ namespace wom {
   struct ArmConfig {
     std::string path;
 
-    frc::DutyCycleEncoder DutyCycleEncoder;
     wom::Gearbox gearbox;
-    wom::Gearbox gearbox1;
     wom::PIDConfig<units::radian, units::volt> pidConfig;
 
     units::kilogram_t armMass;
@@ -37,7 +35,6 @@ namespace wom {
     kIdle,
     kAngle,
     kRaw,
-    kZeroing
   };
 
   //allows the different states to be usable
@@ -51,8 +48,6 @@ namespace wom {
     void SetIdle();
     void SetAngle(units::radian_t angle);
     void SetRaw(units::volt_t voltage);
-    void SetZeroing(units::volt_t voltage);
-
     ArmConfig &GetConfig();
 
     units::radian_t GetAngle() const;

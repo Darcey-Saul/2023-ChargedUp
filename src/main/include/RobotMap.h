@@ -239,40 +239,27 @@ struct RobotMap {
     //stores nessesary info for arm
     struct Arm {
       //creates the motor used for the arm as well as the port it is plugged in
-      rev::CANSparkMax motor{15, rev::CANSparkMax::MotorType::kBrushless};
-      rev::CANSparkMax motor1{11, rev::CANSparkMax::MotorType::kBrushless};
-      // rev::CANSparkMax motor1{11};
+      WPI_TalonSRX motor{15};
 
       //create the motor group used for the arm
-      wom::MotorVoltageController motorGroup = wom::MotorVoltageController::Group(motor, motor1);
+      wom::MotorVoltageController motorGroup = wom::MotorVoltageController::Group(motor);
       
-      // wom::DigitalEncoder encoder{0, 1, 2048};
       //sets the type sof encoder that is used up
-      // rev::SparkMaxRelativeEncoder encoder = motor.GetEncoder();
-      wom::CANSparkMaxEncoder encoder{&motor};
-      wom::CANSparkMaxEncoder encoder1{&motor1};
-      frc::DutyCycleEncoder DutyCyleEncoder{21};
+      wom::DutyCycleEncoder encoder{21};
 
 
       //creates an instance of the arm gearbox
       wom::Gearbox gearbox {
-        &motor,
+        &motorGroup,
         &encoder,
         wom::DCMotor::CIM(1).WithReduction(100)
       };
 
-      wom::Gearbox gearbox1 {
-        &motor1,
-        &encoder1,
-        wom::DCMotor::CIM(1).WithReduction(100)
-      };
 
       //creates arm config information
       wom::ArmConfig config {
         "/armavator/arm",
-        DutyCyleEncoder,
         gearbox,
-        gearbox1,
         wom::PIDConfig<units::radian, units::volts>(
           "/armavator/arm/pid/config",
           18_V / 90_deg
@@ -287,7 +274,7 @@ struct RobotMap {
 
       Arm() {
         //sets the ofset for the encoder so it reads the right value
-        // encoder.SetEncoderOffset(-77.6_deg);
+        encoder.SetEncoderOffset(-77.6_deg);
         //inverts the motor so that it goes in the right direction while using RAW controlls
         motor.SetInverted(true);
       }
@@ -297,33 +284,25 @@ struct RobotMap {
     ////stores nessesary info for elevator
     struct Elevator {
       //creates instances of the motors used for the elevator as well as what ports they are plugged in to
-      rev::CANSparkMax motor2{19, rev::CANSparkMax::MotorType::kBrushless};
-      rev::CANSparkMax motor3{18, rev::CANSparkMax::MotorType::kBrushless};
+      WPI_TalonSRX motor{19};
+      WPI_TalonSRX motor1{18};
 
       //creates the motor group that can be used to set voltage
-      wom::MotorVoltageController motorGroup = wom::MotorVoltageController::Group(motor2, motor3);
+      wom::MotorVoltageController motorGroup = wom::MotorVoltageController::Group(motor, motor1);
 
       //creates an instance of the encoder that will be used for the elevator
-      wom::CANSparkMaxEncoder encoder2{motor2};
-      wom::CANSparkMaxEncoder encoder3{motor3};
+      wom::TalonSRXEncoder encoder{&encoder, 40, 10.71};
       //creates an instance of the gearbox used for the elevator
-      wom::Gearbox gearbox2 {
-        &motor2,
-        &encoder2,
-        wom::DCMotor::CIM(2).WithReduction(10.71)
-      };
-
-      wom::Gearbox gearbox3 {
-        &motor3,
-        &encoder3,
+      wom::Gearbox gearbox {
+        &motorGroup,
+        &encoder,
         wom::DCMotor::CIM(2).WithReduction(10.71)
       };
 
       //creates the elevator config information to use
       wom::ElevatorConfig config {
         "/armavator/elevator",
-        gearbox2,
-        gearbox3,
+        gearbox,
         nullptr,
         nullptr,
         65_mm / 2,
@@ -340,8 +319,8 @@ struct RobotMap {
 
       //inverts the motor directions so that the arm goes to the right place during RAW control
       Elevator() {
-        motor2.SetInverted(true);
-        motor3.SetInverted(true);
+        motor.SetInverted(true);
+        motor1.SetInverted(true);
       }
     };
     Elevator elevator;

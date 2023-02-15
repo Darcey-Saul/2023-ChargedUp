@@ -20,15 +20,13 @@ namespace wom {
     kIdle, 
     kPID,
     kManual,
-    kRaw,
-    kZeroing
+    kRaw
   };
 
   //creates infromation that is used in the config
   struct ElevatorConfig {
     std::string path;
-    wom::Gearbox gearbox2;
-    wom::Gearbox gearbox3;
+    wom::Gearbox gearbox;
     frc::AnalogInput *topSensor;
     frc::AnalogInput *bottomSensor;
     units::meter_t radius;
@@ -53,8 +51,7 @@ namespace wom {
     void SetPID(units::meter_t height);
     void SetIdle();
     void SetRaw(units::volt_t voltage);
-    void SetZeroing(units::volt_t voltage);
-
+    
     ElevatorConfig &GetConfig();
     
     bool IsStable() const;

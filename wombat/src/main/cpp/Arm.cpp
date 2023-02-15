@@ -44,13 +44,6 @@ void Arm::OnUpdate(units::second_t dt) {
     case ArmState::kRaw:
       voltage = _voltage;
       break;
-    case ArmState::kZeroing:
-      //current angle = 0
-      voltage = -2_V;
-      _config.gearbox.encoder->ZeroEncoder();
-      _config.gearbox1.encoder->ZeroEncoder();
-      _state = ArmState::kIdle;
-      break;
   }
 
   // if (
@@ -81,11 +74,6 @@ void Arm::SetRaw(units::volt_t voltage) {
 void Arm::SetAngle(units::radian_t angle) {
   _state = ArmState::kAngle;
   _pid.SetSetpoint(angle);
-}
-
-void Arm::SetZeroing(units::volt_t voltage) {
-  _state = ArmState::kZeroing;
-  _voltage = voltage;
 }
 
 ArmConfig &Arm::GetConfig() {
