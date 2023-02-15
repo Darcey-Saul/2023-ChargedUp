@@ -291,7 +291,7 @@ struct RobotMap {
       wom::MotorVoltageController motorGroup = wom::MotorVoltageController::Group(motor, motor1);
 
       //creates an instance of the encoder that will be used for the elevator
-      wom::TalonSRXEncoder encoder{&encoder, 40, 10.71};
+      wom::TalonSRXEncoder encoder{&motor, 40, 10.71};
       //creates an instance of the gearbox used for the elevator
       wom::Gearbox gearbox {
         &motorGroup,
