@@ -29,6 +29,7 @@ namespace wom {
     wom::Gearbox gearbox;
     frc::AnalogInput *topSensor;
     frc::AnalogInput *bottomSensor;
+    //frc::AnalogInput elevatorLamprey
     units::meter_t radius;
     units::kilogram_t mass;
     units::meter_t maxHeight = 1.33_m;

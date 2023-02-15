@@ -247,6 +247,7 @@ struct RobotMap {
       //sets the type sof encoder that is used up
       wom::DutyCycleEncoder encoder{21};
 
+      //wom::TalonSRXEncoder armLamprey{&motor, 40, 10.71}
 
       //creates an instance of the arm gearbox
       wom::Gearbox gearbox {
@@ -292,6 +293,9 @@ struct RobotMap {
 
       //creates an instance of the encoder that will be used for the elevator
       wom::TalonSRXEncoder encoder{&motor, 40, 10.71};
+
+      //wom::TalonSRXEncoder elevatorLamprey{&motor, 40, 10.71}
+
       //creates an instance of the gearbox used for the elevator
       wom::Gearbox gearbox {
         &motorGroup,
