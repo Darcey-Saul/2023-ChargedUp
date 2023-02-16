@@ -90,7 +90,7 @@ class ArmavatorManualBehaviour : public behaviour::Behaviour {
 class SelfRightBehaviour : public behaviour::Behaviour{
  public:
   //constructor
-  SelfRightBehaviour(Armavator *armavator, ArmavatorPosition setpoint, frc::XboxController &driver);
+  SelfRightBehaviour(Armavator *armavator, ArmavatorPosition setpoint, frc::XboxController &driver, units::volt_t voltage);
 
   //Override the OnStart abd OnTick functions, while setting the units for when Armavator runs
    void OnStart() override;
@@ -101,4 +101,5 @@ class SelfRightBehaviour : public behaviour::Behaviour{
   Armavator *_armavator;
   ArmavatorPosition _setpoint;
   frc::XboxController &_driver;
+  units::volt_t _voltage;
 };

@@ -240,8 +240,8 @@ void ArmavatorManualBehaviour::OnTick(units::second_t dt) {
   }
 }
 
-SelfRightBehaviour::SelfRightBehaviour(Armavator *armavator, ArmavatorPosition setpoint, frc::XboxController &driver)
-: _armavator(armavator), _setpoint(setpoint), _driver(driver){
+SelfRightBehaviour::SelfRightBehaviour(Armavator *armavator, ArmavatorPosition setpoint, frc::XboxController &driver, units::volt_t voltage)
+: _armavator(armavator), _setpoint(setpoint), _driver(driver), _voltage(voltage){
   Controls(armavator);
 }
 
@@ -250,6 +250,7 @@ void SelfRightBehaviour::OnStart() {
 }
 
 void SelfRightBehaviour::OnTick(units::second_t dt) {
+  _voltage = 6_V;
   _setpoint.angle = -90_deg;
   _setpoint.height = 1.33_m;
 }
