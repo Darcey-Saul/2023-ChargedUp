@@ -2,12 +2,13 @@
 // #include "Poses.h"
 
 #include "behaviour/SwerveBaseBehaviour.h"
+#include "behaviour/ArmavatorBehaviour.h"
 
 using namespace behaviour;
 
 DefinedPoses definedPoses;
 
-AutoPathDetails GetAutoPathingDetails(Drivebase drivebase, StartingConfig startConfig, EndingConfig endConfig, bool blueAlliance, int calledFromID, std::vector<frc::Pose2d> adjustmentPoses){
+AutoPathDetails GetAutoPathingDetails(Drivebase drivebase, Armavator armavator, StartingConfig startConfig, EndingConfig endConfig, bool blueAlliance, int calledFromID, std::vector<frc::Pose2d> adjustmentPoses){
   AutoPathDetails autoPathingDetails;
   std::shared_ptr<Behaviour> adjustmentPathing;
   std::shared_ptr<Behaviour> endPathing;
@@ -66,37 +67,42 @@ AutoPathDetails GetAutoPathingDetails(Drivebase drivebase, StartingConfig startC
 }
 
 
-std::shared_ptr<Behaviour> DockBot(Drivebase drivebase, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig){
-  AutoPathDetails autoPathDetails = GetAutoPathingDetails(drivebase, startConfig, endConfig, blueAlliance, 0);
+std::shared_ptr<Behaviour> DockBot(Drivebase drivebase, Armavator armavator, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig){
+  AutoPathDetails autoPathDetails = GetAutoPathingDetails(drivebase, armavator, startConfig, endConfig, blueAlliance, 0);
   return
     make<DrivebasePoseBehaviour>(drivebase.swerve, autoPathDetails.startPos)
+    << make<ArmavatorGoToPositionBehaviour>(armavator, ArmavatorPosition{1.33_m, 0_deg})
     << autoPathDetails.endPathing;
 }
 
-std::shared_ptr<Behaviour> Single(Drivebase drivebase, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig){
-  AutoPathDetails autoPathDetails = GetAutoPathingDetails(drivebase, startConfig, endConfig, blueAlliance, 1);
+std::shared_ptr<Behaviour> Single(Drivebase drivebase, Armavator armavator, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig){
+  AutoPathDetails autoPathDetails = GetAutoPathingDetails(drivebase, armavator, startConfig, endConfig, blueAlliance, 1);
   return 
     make<DrivebasePoseBehaviour>(drivebase.swerve, autoPathDetails.startPos)
+    << make<ArmavatorGoToPositionBehaviour>(armavator, ArmavatorPosition{1.33_m, 0_deg})
     // place gamepiece
     << autoPathDetails.endPathing;
 
 }
 
-std::shared_ptr<Behaviour> Double(Drivebase drivebase, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig){
-  AutoPathDetails autoPathDetails = GetAutoPathingDetails(drivebase, startConfig, endConfig, blueAlliance, 2);
+std::shared_ptr<Behaviour> Double(Drivebase drivebase, Armavator armavator, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig){
+  AutoPathDetails autoPathDetails = GetAutoPathingDetails(drivebase, armavator, startConfig, endConfig, blueAlliance, 2);
   return
     make<DrivebasePoseBehaviour>(drivebase.swerve, autoPathDetails.startPos)
     << make<DrivebasePoseBehaviour>(drivebase.swerve, frc::Pose2d{224_in, 0_m, 0_deg})
+    << make<ArmavatorGoToPositionBehaviour>(armavator, ArmavatorPosition{1.33_m, -45_deg}) //intake, might not be correct
     << make<DrivebasePoseBehaviour>(drivebase.swerve, frc::Pose2d{0_m, 0_m, 0_deg})
+    << make<ArmavatorGoToPositionBehaviour>(armavator, ArmavatorPosition{1.33_m, 0_deg})
     << autoPathDetails.endPathing;
 }
 
-std::shared_ptr<Behaviour> Triple(Drivebase drivebase, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig){
-  AutoPathDetails autoPathDetails = GetAutoPathingDetails(drivebase, startConfig, endConfig, blueAlliance, 3);
+std::shared_ptr<Behaviour> Triple(Drivebase drivebase, Armavator armavator, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig){
+  AutoPathDetails autoPathDetails = GetAutoPathingDetails(drivebase, armavator, startConfig, endConfig, blueAlliance, 3);
 
   // this function is currently built for testing while starting at (0, 0) due to lack of vision
   auto wait_until = make<DrivebasePoseBehaviour>(drivebase.swerve, frc::Pose2d{224_in, -45_in, 0_deg}) | make<WaitTime>(3_s);
   auto wait_until2 = make<DrivebasePoseBehaviour>(drivebase.swerve, frc::Pose2d{0_in, 1.5_m, 0_deg}) | make<WaitTime>(2_s); 
+  auto wait_until3 = make<ArmavatorGoToPositionBehaviour>(armavator, ArmavatorPosition{1.33_m, -45_deg}) | make<WaitTime>(2_s); //intake, might not be correct
     
   return
     make<DrivebasePoseBehaviour>(drivebase.swerve, autoPathDetails.startPos)

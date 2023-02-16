@@ -1,6 +1,7 @@
 {
   "java.configuration.updateBuildConfiguration": "disabled",
   "files.associations": {
-    "*.inc": "cpp"
+    "*.inc": "cpp",
+    "memory": "cpp"
   }
 }

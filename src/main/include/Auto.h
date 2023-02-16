@@ -2,6 +2,7 @@
 
 #include "behaviour/Behaviour.h"
 #include "drivetrain/SwerveDrive.h"
+#include "behaviour/ArmavatorBehaviour.h"
 
 
 class DefinedPoses {
@@ -93,18 +94,18 @@ enum EndingConfig {
   Taxi
 };
 
-AutoPathDetails GetAutoPathingDetails(Drivebase drivebase, StartingConfig startConfig, EndingConfig endConfig, bool blueAlliance, int calledFromID, std::vector<frc::Pose2d> adjustmentPoses = {});
+AutoPathDetails GetAutoPathingDetails(Drivebase drivebase, Armavator armavator, StartingConfig startConfig, EndingConfig endConfig, bool blueAlliance, int calledFromID, std::vector<frc::Pose2d> adjustmentPoses = {});
 
 
-std::shared_ptr<behaviour::Behaviour> DockBot(Drivebase drivebase, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig);
+std::shared_ptr<behaviour::Behaviour> DockBot(Drivebase drivebase, Armavator armavator, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig);
 
-std::shared_ptr<behaviour::Behaviour> Single(Drivebase drivebase, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig);
+std::shared_ptr<behaviour::Behaviour> Single(Drivebase drivebase, Armavator armavator, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig);
 
-std::shared_ptr<behaviour::Behaviour> Double(Drivebase drivebase, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig);
+std::shared_ptr<behaviour::Behaviour> Double(Drivebase drivebase, Armavator armavator, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig);
 
-std::shared_ptr<behaviour::Behaviour> Triple(Drivebase drivebase, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig);
+std::shared_ptr<behaviour::Behaviour> Triple(Drivebase drivebase, Armavator armavator, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig);
 
-std::shared_ptr<behaviour::Behaviour> Quad(Drivebase drivebase, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig);
+std::shared_ptr<behaviour::Behaviour> Quad(Drivebase drivebase, Armavator armavator, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig);
 
 
 
@@ -112,6 +113,6 @@ std::shared_ptr<behaviour::Behaviour> Quad(Drivebase drivebase, bool blueAllianc
 /*
 lOW GRID: -51.27 DEG, 1.33 HEIGHT
 MIDDLE GRID: -20.50 DEG, 1.33 HEIGHT
-HEIGH GRID: 0 DEG, M1.33 HEIGHT
+HEIGH GRID: 0 DEG, 1.33 HEIGHT
 */
 /*VERY ROUGH, WILL PROBS NEED TUNING TO BE MORE PRECISE*/
