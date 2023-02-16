@@ -4,117 +4,108 @@
 #include "drivetrain/SwerveDrive.h"
 
 
+class DefinedPoses {
+ public:
+  struct Poses {
+    frc::Pose2d startPos;
+    frc::Pose2d dock_LineUp_Pos;
+    frc::Pose2d dockPos;
+    frc::Pose2d stealPos;
+    frc::Pose2d taxiPos;
+    frc::Pose2d subStationWaitPos;
+  };
+  Poses poseSet{};
 
-/*
-Starting Poses corresponding with:
-    Top:  frc::Pose2d{0_m, 0_m, 0_deg}
-    Middle: frc::Pose2d{0_m, 0_m, 0_deg}
-    Bottom: frc::Pose2d{0_m, 0_m, 0_deg}
-*/
+  Poses top_Blue {
+    {72.055_in, 196.3_in, 0_deg}, // startPos
+    {83.607_in, 139.388_in, 0_deg}, // dock_LineUp_Pos
+    {122.808_in, 139.286_in, 0_deg}, // dockPos
+    {287.887_in, 180.555_in, 0_deg}, // stealPos
+    {171.061_in, 195.748_in, 0_deg}, // taxiPos
 
-std::shared_ptr<behaviour::Behaviour> Drive(wom::SwerveDrive *swerve, wom::NavX *gyro);
+    {291.192_in, 246.31_in, 0_deg}  // subStationWaitPOs
+  };
+  Poses middle_Blue {
+    {72.043_in, 86.608_in, 0_deg}, // startPos
+    {83.629_in, 107.795_in, 0_deg}, // dock_LineUp_Pos
+    {122.407_in, 107.992_in, 0_deg}, // dockPos
 
+    {0_m, 0_m, 0_deg}, // stealPos
+    {0_m, 0_m, 0_deg}, // taxiPos
+    {0_m, 0_m, 0_deg}  // subStationWaitPOs
+  };
+  Poses bottom_Blue {
+    {72.061_in, 20.208_in, 0_deg}, // startPos
+    {82.138_in, 76.783_in, 0_deg}, // dock_LineUp_Pos
+    {124.158_in, 75.594_in, 0_deg}, // dockPos
+    {288.932_in, 35.832_in, 0_deg}, // stealPos
+    {221.744_in, 17.986_in, 0_deg}, // taxiPos
 
-enum endingConfig {
-    Dock,
-    Steal,
-    Collect,
-    PrepareManual, // get rdy to go collect from substation
-    Taxi
+    {0_m, 0_m, 0_deg}  // subStationWaitPOs
+  };
+
+  Poses top_Red {
+    {0_m, 0_m, 0_deg}, // startPos
+    {0_m, 0_m, 0_deg}, // dock_LineUp_Pos
+    {0_m, 0_m, 0_deg}, // dockPos
+    {0_m, 0_m, 0_deg}, // stealPos
+    {0_m, 0_m, 0_deg}, // taxiPos
+    {0_m, 0_m, 0_deg}  // subStationWaitPOs
+  };
+  Poses middle_Red {
+    {0_m, 0_m, 0_deg}, // startPos
+    {0_m, 0_m, 0_deg}, // dock_LineUp_Pos
+    {0_m, 0_m, 0_deg}, // dockPos
+    {0_m, 0_m, 0_deg}, // stealPos
+    {0_m, 0_m, 0_deg}, // taxiPos
+    {0_m, 0_m, 0_deg}  // subStationWaitPOs
+  };
+  Poses bottom_Red {
+    {0_m, 0_m, 0_deg}, // startPos
+    {0_m, 0_m, 0_deg}, // dock_LineUp_Pos
+    {0_m, 0_m, 0_deg}, // dockPos
+    {0_m, 0_m, 0_deg}, // stealPos
+    {0_m, 0_m, 0_deg}, // taxiPos
+    {0_m, 0_m, 0_deg}  // subStationWaitPOs
+  };
 };
 
-enum startingConfig {
-    Top,
-    Middle,
-    Bottom
+
+struct Drivebase {
+  wom::SwerveDrive *swerve;
+  wom::NavX *gyro;
+};
+struct AutoPathDetails {
+  frc::Pose2d startPos;
+  std::shared_ptr<behaviour::Behaviour> endPathing;
 };
 
+enum StartingConfig {
+  Top,
+  Middle,
+  Bottom
+};
+enum EndingConfig {
+  Dock,
+  Steal,
+  Collect,
+  PrepareManual, // get rdy to go collect from substation
+  Taxi
+};
+
+AutoPathDetails GetAutoPathingDetails(Drivebase drivebase, StartingConfig startConfig, EndingConfig endConfig, bool blueAlliance, int calledFromID, std::vector<frc::Pose2d> adjustmentPoses = {});
 
 
+std::shared_ptr<behaviour::Behaviour> DockBot(Drivebase drivebase, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig);
 
-// std::shared_ptr<behaviour::Behaviour> Dock(wom::SwerveDrive *swerve, bool blueAlliance, enum startingConfig, enum endingConfig);
+std::shared_ptr<behaviour::Behaviour> Single(Drivebase drivebase, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig);
 
-// std::shared_ptr<behaviour::Behaviour> Single(wom::SwerveDrive *swerve, bool blueAlliance, bool dock, enum startPos, enum endPos);
+std::shared_ptr<behaviour::Behaviour> Double(Drivebase drivebase, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig);
 
-// std::shared_ptr<behaviour::Behaviour> Double(wom::SwerveDrive *swerve, bool blueAlliance, bool dock, enum startPos, enum endPos);
+std::shared_ptr<behaviour::Behaviour> Triple(Drivebase drivebase, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig);
 
-// std::shared_ptr<behaviour::Behaviour> Triple(wom::SwerveDrive *swerve, bool blueAlliance, bool dock, enum startPos, enum endPos);
+std::shared_ptr<behaviour::Behaviour> Quad(Drivebase drivebase, bool blueAlliance, StartingConfig startConfig, EndingConfig endConfig);
 
-// std::shared_ptr<behaviour::Behaviour> Quad(wom::SwerveDrive *swerve, bool blueAlliance, bool dock, enum startPos, enum endPos);
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Assuming in auto we only score high
-
-// BLUE
-
-// Docking Only
-std::shared_ptr<behaviour::Behaviour> BLUE_Top_Dock(wom::SwerveDrive *swerve);
-std::shared_ptr<behaviour::Behaviour> BLUE_Middle_Dock(wom::SwerveDrive *swerve);
-std::shared_ptr<behaviour::Behaviour> BLUE_Bottom_Dock(wom::SwerveDrive *swerve);
-
-// Single Score                 <- We should not need to move for this
-std::shared_ptr<behaviour::Behaviour> BLUE_Single(wom::SwerveDrive *swerve);
-
-// Single Score + Dock          <- We should only be in middle for doing this one
-std::shared_ptr<behaviour::Behaviour> BLUE_Single_Dock(wom::SwerveDrive *swerve);
-
-// Triple Score                 <- We should never be in the middle for doing this one
-std::shared_ptr<behaviour::Behaviour> BLUE_Top_Triple(wom::SwerveDrive *swerve);
-std::shared_ptr<behaviour::Behaviour> BLUE_Bottom_Triple(wom::SwerveDrive *swerve);
-
-// Double Score + Dock          <- We should never be in the middle for doing this one
-std::shared_ptr<behaviour::Behaviour> BLUE_Top_Double_Dock(wom::SwerveDrive *swerve);
-std::shared_ptr<behaviour::Behaviour> BLUE_Bottom_Double_Dock(wom::SwerveDrive *swerve);
-
-// Double                       <- We should never be in the middle for doing this one
-std::shared_ptr<behaviour::Behaviour> BLUE_Top_Double(wom::SwerveDrive *swerve);
-std::shared_ptr<behaviour::Behaviour> BLUE_Bottom_Double(wom::SwerveDrive *swerve);
-
-// Quad Collect                 <- We should never be in the middle for doing this one
-std::shared_ptr<behaviour::Behaviour> BLUE_Top_Quad_Collect(wom::SwerveDrive *swerve);
-std::shared_ptr<behaviour::Behaviour> BLUE_Bottom_Quad_Collect(wom::SwerveDrive *swerve);
-
-
-
-// RED
-
-// Docking Only
-std::shared_ptr<behaviour::Behaviour> RED_Top_Dock(wom::SwerveDrive *swerve);
-std::shared_ptr<behaviour::Behaviour> RED_Middle_Dock(wom::SwerveDrive *swerve);
-std::shared_ptr<behaviour::Behaviour> RED_Bottom_Dock(wom::SwerveDrive *swerve);
-
-// Single Score                 <- We should not need to move for this
-std::shared_ptr<behaviour::Behaviour> RED_Single(wom::SwerveDrive *swerve);
-
-// Single Score + Dock          <- We should only be in middle for doing this one
-std::shared_ptr<behaviour::Behaviour> RED_Single_Dock(wom::SwerveDrive *swerve);
-
-// Triple Score                 <- We should never be in the middle for doing this one
-std::shared_ptr<behaviour::Behaviour> RED_Top_Triple(wom::SwerveDrive *swerve);
-std::shared_ptr<behaviour::Behaviour> RED_Bottom_Triple(wom::SwerveDrive *swerve);
-
-// Double Score + Dock          <- We should never be in the middle for doing this one
-std::shared_ptr<behaviour::Behaviour> RED_Top_Double_Dock(wom::SwerveDrive *swerve);
-std::shared_ptr<behaviour::Behaviour> RED_Bottom_Double_Dock(wom::SwerveDrive *swerve);
-
-// Double                       <- We should never be in the middle for doing this one
-std::shared_ptr<behaviour::Behaviour> RED_Top_Double(wom::SwerveDrive *swerve);
-std::shared_ptr<behaviour::Behaviour> RED_Bottom_Double(wom::SwerveDrive *swerve);
-
-// Quad Collect                 <- We should never be in the middle for doing this one
-std::shared_ptr<behaviour::Behaviour> RED_Top_Quad_Collect(wom::SwerveDrive *swerve);
-std::shared_ptr<behaviour::Behaviour> RED_Bottom_Quad_Collect(wom::SwerveDrive *swerve);
 
 
 /*VERY ROUGH ESTIMATES FOR POSES, IF CHANGING CODE, CONTACT LIAM*/
