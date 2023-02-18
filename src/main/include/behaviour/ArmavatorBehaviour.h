@@ -74,6 +74,30 @@ class ArmavatorManualBehaviour : public behaviour::Behaviour {
  public: 
   ArmavatorManualBehaviour(Armavator *armavator, frc::XboxController &codriver);
 
+  units::radian_t checkAngleLimits(units::radian_t value, units::radian_t lowerLimit, units::radian_t upperLimit) {
+    if (value >= lowerLimit && value < upperLimit) {
+      return value;
+    } else {
+      return value < lowerLimit ? lowerLimit : upperLimit;
+    }
+  }
+
+  units::radian_t getCorrectAngle(units::meter_t height = 0_m) {
+    if (height < 0.51_m) {
+      return 0_rad;
+    } else {
+      if (height >= 0.51_m && height < 0.81_m) {
+        return checkAngleLimits(_manualSetpoint.angle, 0_deg, 90_deg);
+      } else if (height >= 0.81_m && height < 1.21_m) {
+        return checkAngleLimits(_manualSetpoint.angle, -45_deg, 90_deg);
+      } else if (height >= 1.21_m && height < 1.47_m) {
+        return checkAngleLimits(_manualSetpoint.angle, -45_deg, 180_deg);
+      } else if (height == 1.47_m) {
+        return checkAngleLimits(_manualSetpoint.angle, -90_deg, 270_deg);;
+      }
+    }
+  }
+
   void OnStart() override;
   void OnTick(units::second_t dt) override;
  private: 

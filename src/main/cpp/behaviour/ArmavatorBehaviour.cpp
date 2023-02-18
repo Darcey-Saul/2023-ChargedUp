@@ -209,6 +209,7 @@ void ArmavatorManualBehaviour::OnStart() {
 }
 
 void ArmavatorManualBehaviour::OnTick(units::second_t dt) {
+  _manualSetpoint.angle = getCorrectAngle(_manualSetpoint.height);
 
   if (_codriver.GetBButtonReleased()) {
     if (rawControl) {
