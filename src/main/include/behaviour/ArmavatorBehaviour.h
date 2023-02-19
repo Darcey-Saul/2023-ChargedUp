@@ -90,9 +90,9 @@ class ArmavatorManualBehaviour : public behaviour::Behaviour {
         return checkAngleLimits(_manualSetpoint.angle, 0_deg, 90_deg);
       } else if (height >= 0.81_m && height < 1.21_m) {
         return checkAngleLimits(_manualSetpoint.angle, -45_deg, 90_deg);
-      } else if (height >= 1.21_m && height < 1.47_m) {
+      } else if (height >= 1.21_m && height < 1.33_m) {
         return checkAngleLimits(_manualSetpoint.angle, -45_deg, 180_deg);
-      } else if (height == 1.47_m) {
+      } else if (height == 1.33_m) {
         return checkAngleLimits(_manualSetpoint.angle, -90_deg, 270_deg);;
       }
     }
