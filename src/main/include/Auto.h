@@ -113,6 +113,6 @@ std::shared_ptr<behaviour::Behaviour> Quad(Drivebase drivebase, Armavator armava
 /*
 lOW GRID: -51.27 DEG, 1.33 HEIGHT
 MIDDLE GRID: -20.50 DEG, 1.33 HEIGHT
-HEIGH GRID: 0 DEG, 1.33 HEIGHT
+HIGH GRID: 0 DEG, 1.33 HEIGHT
 */
 /*VERY ROUGH, WILL PROBS NEED TUNING TO BE MORE PRECISE*/
