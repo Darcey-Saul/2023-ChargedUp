@@ -40,12 +40,12 @@ void Robot::RobotInit() {
 
 
   //creates an instance of the armavator that can be used
-  armavator = new Armavator(map.armavator.arm.gearbox, map.armavator.elevator.gearbox, map.armavator.config);
-  BehaviourScheduler::GetInstance()->Register(armavator);
-  armavator->SetDefaultBehaviour([this]() {
-    //sets default behaviour class
-    return make<ArmavatorManualBehaviour>(armavator, map.controllers.tester);
-  });
+  // armavator = new Armavator(map.armavator.arm.gearbox, map.armavator.elevator.gearbox, map.armavator.config);
+  // BehaviourScheduler::GetInstance()->Register(armavator);
+  // armavator->SetDefaultBehaviour([this]() {
+  //   //sets default behaviour class
+  //   return make<ArmavatorManualBehaviour>(armavator, map.controllers.codriver);
+  // });
 
   // gripper = new Gripper(map.gripper.config);
   // BehaviourScheduler::GetInstance()->Register(gripper);
@@ -89,7 +89,7 @@ void Robot::AutonomousInit() {
   swerve->OnStart();
   swerve->ResetPose(frc::Pose2d());
   BehaviourScheduler *sched = BehaviourScheduler::GetInstance();
-  sched->Schedule(Single(Drivebase{swerve, &map.swerveBase.gyro}, armavator, true, StartingConfig::Top, EndingConfig::Dock));
+  sched->Schedule(Drive(swerve, &map.swerveBase.gyro));
  }
 
 void Robot::AutonomousPeriodic() { }
@@ -144,27 +144,43 @@ void Robot::TeleopInit() {
     map.swerveTable.swerveDriveTable->GetEntry("IsX-ed").SetBoolean(true);
   });
 
-  if(!map.controllers.codriver.GetAButton() && !map.controllers.tester.GetBButton() && !map.controllers.tester.GetXButton() && !map.controllers.tester.GetYButton()) {
-   sched->Schedule(make<ArmavatorGoToPositionBehaviour>(armavator, ArmavatorPosition{armavator->_setpoint.height, armavator->_setpoint.angle}));
-  } else {
-    //sets the premade positions usings buttonsS
-    map.controllers.codriver.A(&loop).Rising().IfHigh([sched, this]() {
-      sched->Schedule(make<ArmavatorGoToPositionBehaviour>(armavator, ArmavatorPosition{1.0_m, 0_deg}));
-    });
-    map.controllers.codriver.B(&loop).Rising().IfHigh([sched, this]() {
-      sched->Schedule(make<ArmavatorGoToPositionBehaviour>(armavator, ArmavatorPosition{1.2_m, -75_deg}));
-    });
-    map.controllers.codriver.X(&loop).Rising().IfHigh([sched, this]() {
-      sched->Schedule(make<ArmavatorGoToPositionBehaviour>(armavator, ArmavatorPosition{1.0_m, 90_deg}));
-    });
-    map.controllers.codriver.Y(&loop).Rising().IfHigh([sched, this]() {
-      sched->Schedule(make<ArmavatorGoToPositionBehaviour>(armavator, ArmavatorPosition{0.77_m, 45_deg}));
-    });
-  }
-  /*if (drivebaseposbehaviour.rotation changing every 1sec) {
-    lock armavator in place
-  }*/
+  // swerve->OnStart();
 
+
+  // if (map.controllers.codriver.GetLeftY() <= 0.05 && map.controllers.codriver.GetLeftY() >= 0.05 && map.controllers.codriver.GetRightY() <= 0.05 && map.controllers.codriver.GetRightY() >= 0.05) {
+  //   sched->Schedule(make<ArmavatorGoToPositionBehaviour>(armavator, ArmavatorPosition{armavator->_setpoint.height, armavator->_setpoint.angle}));
+  // }
+
+  // if(!map.controllers.codriver.GetAButton() && !map.controllers.codriver.GetBButton() && !map.controllers.codriver.GetXButton() && !map.controllers.codriver.GetYButton()) {
+  // } else {
+    //sets the premade positions usings buttonsS
+    // map.controllers.codriver.A(&loop).Rising().IfHigh([sched, this]() {
+    //   sched->Schedule(make<ArmavatorGoToPositionBehaviour>(armavator, ArmavatorPosition{1.0_m, 0_deg}));
+    // });
+    // map.controllers.codriver.B(&loop).Rising().IfHigh([sched, this]() {
+    //   sched->Schedule(make<ArmavatorGoToPositionBehaviour>(armavator, ArmavatorPosition{1.2_m, -75_deg}));
+    // });
+    // map.controllers.codriver.X(&loop).Rising().IfHigh([sched, this]() {
+    //   sched->Schedule(make<ArmavatorGoToPositionBehaviour>(armavator, ArmavatorPosition{1.0_m, 90_deg}));
+    // });
+    // map.controllers.codriver.Y(&loop).Rising().IfHigh([sched, this]() {
+    //   sched->Schedule(make<ArmavatorGoToPositionBehaviour>(armavator, ArmavatorPosition{0.77_m, 45_deg}));
+    // });
+  // }
+
+
+  // map.controllers.driver.B(&loop).Rising().IfHigh([sched, this]() {
+  //   swerve->GetActiveBehaviour()->Interrupt();
+  // });
+  // swerve->OnStart();
+
+  // _armSetpoint = armavator->_setpoint.angle;
+  // _elevatorSetpoint = armavator->_setpoint.height;
+
+  // _armSetpoint = 60_deg;
+  // _elevatorSetpoint = 0_m;
+
+  // sched->Schedule(make<ArmavatorManualBehaviour>(armavator, map.controllers.codriver));
 
   // map.controllers.driver.B(&loop).Rising().IfHigh([sched, this]() {
   //   swerve->GetActiveBehaviour()->Interrupt();

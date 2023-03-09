@@ -7,7 +7,6 @@
 #include <units/angle.h>
 #include <units/length.h>
 #include <iostream>
-#include <math.h>
 #include "ControlUtil.h"
 
 class ArmavatorGoToPositionBehaviour : public behaviour::Behaviour {
@@ -74,30 +73,6 @@ class ArmavatorManualBehaviour : public behaviour::Behaviour {
  public: 
   ArmavatorManualBehaviour(Armavator *armavator, frc::XboxController &codriver);
 
-  units::radian_t checkAngleLimits(units::radian_t value, units::radian_t lowerLimit, units::radian_t upperLimit) {
-    if (value >= lowerLimit && value < upperLimit) {
-      return value;
-    } else {
-      return value < lowerLimit ? lowerLimit : upperLimit;
-    }
-  }
-
-  units::radian_t getCorrectAngle(units::meter_t height = 0_m) {
-    if (height < 0.51_m) {
-      return 0_rad;
-    } else {
-      if (height >= 0.51_m && height < 0.81_m) {
-        return checkAngleLimits(_manualSetpoint.angle, 0_deg, 90_deg);
-      } else if (height >= 0.81_m && height < 1.21_m) {
-        return checkAngleLimits(_manualSetpoint.angle, -45_deg, 90_deg);
-      } else if (height >= 1.21_m && height < 1.33_m) {
-        return checkAngleLimits(_manualSetpoint.angle, -45_deg, 180_deg);
-      } else if (height == 1.33_m) {
-        return checkAngleLimits(_manualSetpoint.angle, -90_deg, 270_deg);;
-      }
-    }
-  }
-
   void OnStart() override;
   void OnTick(units::second_t dt) override;
  private: 
@@ -109,21 +84,4 @@ class ArmavatorManualBehaviour : public behaviour::Behaviour {
   units::meter_t startHeight; 
 
   bool rawControl = false;
-};
-
-class SelfRightBehaviour : public behaviour::Behaviour{
- public:
-  //constructor
-  SelfRightBehaviour(Armavator *armavator, ArmavatorPosition setpoint, frc::XboxController &driver, units::volt_t voltage);
-
-  //Override the OnStart abd OnTick functions, while setting the units for when Armavator runs
-   void OnStart() override;
-   void OnTick(units::second_t dt) override;
-
- private:
-  //store important unchangeable info
-  Armavator *_armavator;
-  ArmavatorPosition _setpoint;
-  frc::XboxController &_driver;
-  units::volt_t _voltage;
 };
