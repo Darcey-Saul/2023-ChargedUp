@@ -1,5 +1,4 @@
 #include "Auto.h"
-// #include "Poses.h"
 #include "Poses.h"
 
 #include "behaviour/SwerveBaseBehaviour.h"
@@ -209,19 +208,15 @@ FOR docking:
     drive to one of 3 points,
     drive towards centre a bit,
     activate balance behaviour
-
 FOR collecting middle piece, starting from a grid position:
     drive to middle piece position (might require a straight movement, and then a diagonal, dodging the chargestation)
         after driving a certain distance (or time) engage intake
             after driving a certain distance (or time) activate intake
-
 FOR returning to a grid position after collecting from centre:
     drive to grid position (might require a diagonal, straight then diagonal movement, dodging the chargestation)
         deploy gripper to grab intaked game object
             after some time, move up, to avoid intake
         after a small amount of time disable intake
         (MAYBE) after a small amount of time retract intake
-
         
-
 */

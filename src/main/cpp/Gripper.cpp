@@ -59,4 +59,3 @@ std::string Gripper::GetState() {
     break;
   }
 }
-

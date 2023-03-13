@@ -168,6 +168,20 @@ void Robot::TeleopInit() {
     // });
   // }
 
+  // if(!map.controllers.codriver.GetAButton() && !map.controllers.codriver.GetBButton() && map.controllers.codriver.GetRightTriggerAxis() <= 0.05 && map.controllers.codriver.GetLeftTriggerAxis() <= 0.05) {
+  //   map.armavator.arm.gearbox.transmission->SetVoltage(0_V);
+  //   map.armavator.elevator.gearbox.transmission->SetVoltage(0_V);
+  // } else{
+  //   if(map.controllers.codriver.GetAButton()) {
+  //     map.armavator.arm.gearbox.transmission->SetVoltage(13_V);
+  //   } else if (map.controllers.codriver.GetBButton()) {
+  //     map.armavator.arm.gearbox.transmission->SetVoltage(-13_V);
+  //   }else if(map.controllers.codriver.GetRightTriggerAxis() > 0.05) {
+  //     map.armavator.elevator.gearbox.transmission->SetVoltage(13_V * map.controllers.codriver.GetRightTriggerAxis());
+  //   } else if (map.controllers.codriver.GetLeftTriggerAxis() > 0.05) {
+  //     map.armavator.elevator.gearbox.transmission->SetVoltage(-13_V * map.controllers.codriver.GetLeftTriggerAxis() );
+  //   }
+  // }
 
   // map.controllers.driver.B(&loop).Rising().IfHigh([sched, this]() {
   //   swerve->GetActiveBehaviour()->Interrupt();

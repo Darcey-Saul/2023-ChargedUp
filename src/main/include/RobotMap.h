@@ -17,10 +17,6 @@
 #include <ctre/Phoenix.h>
 #include <frc/DoubleSolenoid.h>
 
-#include <rev/CANSparkMax.h>
-#include <frc/Encoder.h>
-#include <frc/AnalogEncoder.h>
-
 #include "drivetrain/SwerveDrive.h"
 #include <frc/DoubleSolenoid.h>
 #include <units/length.h>
@@ -34,7 +30,6 @@ struct RobotMap {
     //sets driver station numbers for the controllers
     frc::XboxController driver{0};
     frc::XboxController codriver{1};
-    frc::XboxController tester{2};
   };
   Controllers controllers;
 
@@ -244,10 +239,9 @@ struct RobotMap {
       //create the motor group used for the arm
       wom::MotorVoltageController motorGroup = wom::MotorVoltageController::Group(motor);
       
+      // wom::DigitalEncoder encoder{0, 1, 2048};
       //sets the type sof encoder that is used up
-      wom::DutyCycleEncoder encoder{21};
-
-      //wom::TalonSRXEncoder armLamprey{&motor, 40, 10.71}
+      wom::DutyCycleEncoder encoder{0};
 
       //creates an instance of the arm gearbox
       wom::Gearbox gearbox {
@@ -255,7 +249,6 @@ struct RobotMap {
         &encoder,
         wom::DCMotor::CIM(1).WithReduction(100)
       };
-
 
       //creates arm config information
       wom::ArmConfig config {
@@ -293,8 +286,6 @@ struct RobotMap {
 
       //creates an instance of the encoder that will be used for the elevator
       wom::TalonSRXEncoder encoder{&motor, 40, 10.71};
-
-      //wom::TalonSRXEncoder elevatorLamprey{&motor, 40, 10.71}
 
       //creates an instance of the gearbox used for the elevator
       wom::Gearbox gearbox {

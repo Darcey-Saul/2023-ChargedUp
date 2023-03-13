@@ -11,8 +11,8 @@ ArmavatorGoToPositionBehaviour::ArmavatorGoToPositionBehaviour(Armavator *armava
 void ArmavatorGoToPositionBehaviour::OnStart() {
   std::cout << "On Start" << std::endl;
   // Zero the elevator
-  //  _armavator->elevator->SetZeroing();
-  //  _armavator->arm->SetZeroing();
+  // _armavator->elevator->SetZeroing();
+  
   //Sets current position
   // ArmavatorPosition Elevator
   // ArmavatorPosition current = armavator->GetCurrentPosition();
@@ -165,10 +165,8 @@ ArmavatorRawBehaviour::ArmavatorRawBehaviour(Armavator *armavator, frc::XboxCont
   Controls(armavator);
 };
 
-void ArmavatorRawBehaviour::OnStart() {\
-
+void ArmavatorRawBehaviour::OnStart() {
 }
-
 
 void ArmavatorRawBehaviour::OnTick(units::second_t dt) {
   //Raw Positioning
@@ -176,15 +174,6 @@ void ArmavatorRawBehaviour::OnTick(units::second_t dt) {
     -_codriver.GetLeftY() * 9_V,
     -_codriver.GetRightY() * 9_V
   );
-  if (_codriver.GetRightY() < 0.05 && _codriver.GetLeftY() < 0.05) {
-    _setpoint = _armavator->GetCurrentPosition();
-    _armavator->SetPosition(_setpoint);
-  }
-
-  //if (setpoint.angle > _height || setpoint.angle < _height) {
-    //setpoint.angle moves into nearest correct positionS
-  //}
-
   // if(!_codriver.GetRightY() && !_codriver.GetLeftY()) {
   //   _armavator->arm->GetConfig().gearbox.transmission->SetVoltage(0_V);
   //   _armavator->elevator->SetManual(0_V);
@@ -237,5 +226,5 @@ void ArmavatorManualBehaviour::OnTick(units::second_t dt) {
     // _manualSetpoint.height = startHeight;
 
     _armavator->SetPosition(_manualSetpoint);
-  };
-};
+  }
+}
