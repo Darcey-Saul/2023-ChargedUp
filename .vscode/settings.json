@@ -3,7 +3,7 @@
   "files.associations": {
     "*.inc": "cpp",
 
-    "memory": "cpp"
+    "memory": "cpp",
 
     "iosfwd": "cpp",
     "optional": "cpp",
@@ -98,18 +98,11 @@
     "typeindex": "cpp",
     "unordered_set": "cpp",
     "*.tcc": "cpp",
-
-    "cwctype": "cpp",
-    "memory_resource": "cpp",
-    "string_view": "cpp",
-    "bitset": "cpp"
-
     "bitset": "cpp",
     "cwctype": "cpp",
     "memory_resource": "cpp",
     "string_view": "cpp",
     "semaphore": "cpp",
     "cinttypes": "cpp"
-
   }
 }
