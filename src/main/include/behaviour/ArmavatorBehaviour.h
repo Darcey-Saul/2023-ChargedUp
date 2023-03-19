@@ -23,7 +23,7 @@ enum class ArmavatorAutoSetpointEnum {
 
 class ArmavatorGoToAutoSetpoint : public behaviour::Behaviour {
  public: 
-  ArmavatorGoToAutoSetpoint(Armavator *armavator, units::meter_t height, units::degree_t angle, double elevatorSpeed = 0.5, double armSpeed = 0.3);
+  ArmavatorGoToAutoSetpoint(Armavator *armavator, units::meter_t height, units::degree_t angle);
 
   void OnStart();
   void OnTick(units::second_t dt) override;
@@ -32,9 +32,6 @@ class ArmavatorGoToAutoSetpoint : public behaviour::Behaviour {
 
   units::degree_t _angle;
   units::meter_t _height;
-
-  double _elevatorSpeed;
-  double _armSpeed;
   // ArmavatorAutoSetpointEnum _setpoint;
 
   // ArmavatorPosition _setpointValue;
@@ -54,6 +51,7 @@ class ArmavatorGoToPositionBehaviour : public behaviour::Behaviour {
  private:
    //stores nessesary information that can't be changed
    Armavator *_armavator;
+
    ArmavatorPosition _setpoint;
    std::deque<grid_t::GridPathNode<units::second>> _waypoints;
 };
@@ -81,14 +79,6 @@ class ArmavatorRawBehaviour : public behaviour::Behaviour {
   //constructor
   ArmavatorRawBehaviour(Armavator *armavator, frc::XboxController &codriver);
 
-  units::radian_t checkAngleLimits(units::radian_t value, units::radian_t lowerLimit, units::radian_t upperLimit) {
-    if (value >= lowerLimit && value < upperLimit) {
-      return value;
-    } else {
-      return value < lowerLimit ? lowerLimit : upperLimit;
-    }
-  }
-
   void OnStart() override;
   void OnTick(units::second_t dt) override;
  private:
@@ -112,7 +102,6 @@ class ArmavatorManualBehaviour : public behaviour::Behaviour {
   ArmavatorPosition _setpointValue;
 
   frc::XboxController &_codriver;
-  units::degree_t max_diff = 10_deg;
 
   units::meter_t startHeight; 
   frc::EventLoop *loop;

@@ -11,6 +11,7 @@
 #include <frc/event/EventLoop.h>
 #include "ControlUtil.h"
 #include <units/math.h>
+
 #include <stdio.h>
 
 #include "behaviour/BehaviourScheduler.h"
@@ -41,19 +42,19 @@ class Robot : public frc::TimedRobot {
 
  private:
   frc::EventLoop loop;
-  RobotMap map;
-  behaviour::BehaviourScheduler *sched;
   
   //creates nessesary instances to use in robot.cpp and robotmap.h
-  wom::SwerveDrive *swerve;
+  RobotMap map;
   Armavator *armavator;
+  wom::SwerveDrive *swerve;
+  bool intakeSol = false;
+  bool gripperSol = false;
   Vision *vision;
+  //SwerveModuleTest *swerveModule;
   SideIntake *sideIntake;
   Gripper *gripper;
 
   bool compressorToggle = false;
-  bool intakeSol = false;
-  bool gripperSol = false;
 
   units::meter_t _elevatorSetpoint = 0_m;
   units::radian_t _armSetpoint = 0_deg;

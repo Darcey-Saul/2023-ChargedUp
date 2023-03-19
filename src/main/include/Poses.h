@@ -13,3 +13,4 @@ struct Poses {
     static constexpr frc::Pose2d outerGrid2 ={1_m, 0_m, 0_deg}; // Middle of Outer Grid
     static constexpr frc::Pose2d outerGrid3 ={-0.5_m, -0.5_m, 0_deg}; // Closest grid position to enemy Loading Zone
 };
+
