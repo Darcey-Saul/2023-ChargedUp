@@ -317,3 +317,17 @@ void ArmavatorManualBehaviour::OnTick(units::second_t dt) {
       _armavator->SetPosition(_manualSetpoint);
     }
   }
+
+  ArmavatorVelocityControls::ArmavatorVelocityControls(Armavator *armavator, frc::XboxController &codriver)
+  : _armavator(armavator), _codriver(codriver) {
+     Controls(armavator);
+  };
+
+  void ArmavatorVelocityControls::OnStart() {
+  }
+
+  void ArmavatorVelocityControls::OnTick(units::second_t dt) {
+    /*Using Joysticks
+    joystick input=target velocity
+    if target velocity is < or > 0, ease into the velocity*/
+  }

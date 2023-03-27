@@ -108,3 +108,14 @@ class ArmavatorManualBehaviour : public behaviour::Behaviour {
 
   bool rawControl = true;
 };
+
+class ArmavatorVelocityControls : public behaviour::Behaviour {
+ public:
+  ArmavatorVelocityControls(Armavator *armavator, frc::XboxController &codriver);
+
+  void OnStart() override;
+  void OnTick(units::second_t dt) override;
+ private:
+  Armavator *_armavator;
+  frc::XboxController &_codriver;
+};
