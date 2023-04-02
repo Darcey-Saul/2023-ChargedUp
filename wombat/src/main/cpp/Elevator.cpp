@@ -99,6 +99,10 @@ ElevatorState Elevator::GetState() const {
   return _state;
 }
 
+units::radians_per_second_t Elevator::GetSpeed() const {
+  return _config.elevatorEncoder.GetVelocity() * 1_m/60_s * 14/60 * 2 * 3.1415 * 0.02225;
+}
+
 double Elevator::GetElevatorEncoderPos() {
   return _config.elevatorEncoder.GetPosition() * 14/60 * 2 * 3.1415 * 0.02225;
 }

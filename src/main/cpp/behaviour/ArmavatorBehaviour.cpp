@@ -253,3 +253,19 @@ void ArmavatorManualBehaviour::OnTick(units::second_t dt) {
   // std::cout << "arm pos: " << armPos.value() << std::endl;
   // std::cout << "elevator pos: " << _armavator->elevator->GetConfig().leftGearbox.encoder->GetEncoderPosition().value() << std::endl;
 }
+
+ArmavatorVelocityBehaviour::ArmavatorVelocityBehaviour(Armavator *armavator, frc::XboxController &codriver) 
+  : _armavator(armavator), _codriver(codriver) {
+    Controls(armavator);
+}
+
+void ArmavatorVelocityBehaviour::OnStart() {
+}
+
+void ArmavatorVelocityBehaviour::OnTick(units::second_t dt) {
+  if ((_codriver.GetLeftY() || _codriver.GetLeftX()) && ((_codriver.GetRightY() || _codriver.GetRightX())) && _codriver.GetLeftBumper()) {
+    //joystic input = target velocity
+  } else {
+    //remain in last location
+  };
+}

@@ -82,3 +82,8 @@ ArmavatorPosition Armavator::GetCurrentPosition() const {
 bool Armavator::IsStable() const {
   return elevator->IsStable() && arm->IsStable();
 }
+
+void Armavator::SetVelocity() {
+  return arm->GetSpeed();
+  return elevator->GetSpeed();
+}

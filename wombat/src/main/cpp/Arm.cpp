@@ -108,6 +108,10 @@ units::radian_t Arm::GetAngle() const {
   return _config.armEncoder.GetPosition() / 100 * 360 * 1_deg;
 }
 
+units::radians_per_second_t Arm::GetSpeed() const {
+  return _config.armEncoder.GetVelocity() / 100 * 360 * 1_deg / 60_s;
+}
+
 units::radians_per_second_t Arm::MaxSpeed() const {
   return _config.leftGearbox.motor.Speed(0_Nm, 12_V);
 }

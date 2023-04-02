@@ -50,7 +50,7 @@ namespace wom {
     void SetArmSpeedLimit(double limit); //units, what are they?? 
 
     ArmConfig &GetConfig();
-
+    units::radians_per_second_t GetSpeed() const;
     units::radian_t GetAngle() const;
     units::radians_per_second_t MaxSpeed() const;
     

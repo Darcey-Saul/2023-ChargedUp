@@ -53,7 +53,7 @@ class Armavator : public behaviour::HasBehaviour {
   void SetZeroing();
   void SetManual(units::volt_t arm, units::volt_t elevator);
   void SetSpeedValues(double elevatorSpeed, double armSpeed);
-
+  void SetVelocity();
   ArmavatorPosition GetCurrentPosition() const;
   bool IsStable() const;
 
