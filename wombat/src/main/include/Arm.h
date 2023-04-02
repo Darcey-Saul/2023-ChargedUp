@@ -34,7 +34,7 @@ namespace wom {
   enum class ArmState {
     kIdle,
     kAngle,
-    kRaw,
+    kRaw
   };
 
   class Arm : public behaviour::HasBehaviour {
@@ -55,7 +55,6 @@ namespace wom {
     units::radians_per_second_t MaxSpeed() const;
     
     bool IsStable() const;
-
   private:
     ArmConfig _config;
     ArmState _state = ArmState::kIdle;

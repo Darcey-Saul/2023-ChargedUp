@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <frc/XboxController.h>
@@ -23,7 +24,7 @@ enum class ArmavatorAutoSetpointEnum {
 
 class ArmavatorGoToAutoSetpoint : public behaviour::Behaviour {
  public: 
-  ArmavatorGoToAutoSetpoint(Armavator *armavator, units::meter_t height, units::degree_t angle);
+  ArmavatorGoToAutoSetpoint(Armavator *armavator, units::meter_t height, units::degree_t angle, double elevatorSpeed = 0.5, double armSpeed = 0.3);
 
   void OnStart();
   void OnTick(units::second_t dt) override;
@@ -32,6 +33,9 @@ class ArmavatorGoToAutoSetpoint : public behaviour::Behaviour {
 
   units::degree_t _angle;
   units::meter_t _height;
+
+  double _elevatorSpeed;
+  double _armSpeed;
   // ArmavatorAutoSetpointEnum _setpoint;
 
   // ArmavatorPosition _setpointValue;
@@ -102,20 +106,10 @@ class ArmavatorManualBehaviour : public behaviour::Behaviour {
   ArmavatorPosition _setpointValue;
 
   frc::XboxController &_codriver;
+  units::degree_t max_diff = 10_deg;
 
   units::meter_t startHeight; 
   frc::EventLoop *loop;
 
   bool rawControl = true;
-};
-
-class ArmavatorVelocityControls : public behaviour::Behaviour {
- public:
-  ArmavatorVelocityControls(Armavator *armavator, frc::XboxController &codriver);
-
-  void OnStart() override;
-  void OnTick(units::second_t dt) override;
- private:
-  Armavator *_armavator;
-  frc::XboxController &_codriver;
 };
